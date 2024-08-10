@@ -9,8 +9,7 @@ app.use(cors());
 app.use(express.json());
 
 // MongoDB connection
-const MONGODB_URI =
-  "mongodb+srv://evanshankman:Testing1234@cluster0.61dimjd.mongodb.net/inethi_stories?retryWrites=true&w=majority&appName=Cluster0";
+const MONGODB_URI = "mongodb://localhost:27017/inethistories";
 mongoose
   .connect(MONGODB_URI)
   .then(() => console.log("MongoDB connected"))
@@ -25,9 +24,11 @@ const categorySchema = new mongoose.Schema({
 const storySchema = new mongoose.Schema({
   category: String,
   title: String,
+  author: String,
   content: String,
   downloads: { type: Number, default: 0 },
   views: { type: Number, default: 0 },
+  likes: { type: Number, default: 0 },
 });
 
 const Category = mongoose.model("Category", categorySchema);
@@ -55,6 +56,19 @@ app.get("/stories/:category", async (req, res) => {
     res.json(allStories);
   } catch (error) {
     console.error("Error fetching stories:", error);
+    res.status(500).json({ message: error.message });
+  }
+});
+
+app.get("/stories", async (req, res) => {
+  const { title } = req.query;
+  try {
+    //console.log(title);
+    const results = await Story.find();
+    //console.log(results);
+    res.json(results);
+  } catch (error) {
+    console.error("Error fetching search results:", error);
     res.status(500).json({ message: error.message });
   }
 });
@@ -107,6 +121,36 @@ app.post("/stories/:id/downloads", async (req, res) => {
     res.json(story);
   } catch (error) {
     console.error("Could not increase number of downloads", error);
+    res.status(500).json({ message: error.message });
+  }
+});
+
+app.post("/stories/:id/like", async (req, res) => {
+  const { id } = req.params;
+  try {
+    const story = await Story.findByIdAndUpdate(
+      id,
+      { $inc: { likes: 1 } },
+      { new: true }
+    );
+    res.json(story);
+  } catch (error) {
+    console.error("Failed to increase number of likes", error);
+    res.status(500).json({ message: error.message });
+  }
+});
+
+app.post("/stories/:id/unlike", async (req, res) => {
+  const { id } = req.params;
+  try {
+    const story = await Story.findByIdAndUpdate(
+      id,
+      { $inc: { likes: -1 } },
+      { new: true }
+    );
+    res.json(story);
+  } catch (error) {
+    console.error("Failed to decrease number of likes", error);
     res.status(500).json({ message: error.message });
   }
 });
