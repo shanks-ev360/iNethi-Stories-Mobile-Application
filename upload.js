@@ -4,7 +4,7 @@ const path = require("path");
 
 // MongoDB connection
 const MONGODB_URI =
-  "mongodb+srv://evanshankman:Testing1234@cluster0.61dimjd.mongodb.net/inethi_stories?retryWrites=true&w=majority&appName=Cluster0";
+  "mongodb+srv://evanshankman:Testing1234@cluster0.61dimjd.mongodb.net/inethi_stories?retryWrites=true&w=majority";
 mongoose
   .connect(MONGODB_URI)
   .then(() => console.log("MongoDB connected"))
@@ -35,7 +35,7 @@ async function uploadStory(category, title, views, content) {
 }
 
 // Read HTML file
-const filePath = path.join(__dirname, "CyberHoliday.html");
+const filePath = path.join(__dirname, "CHOL.html");
 fs.readFile(filePath, "utf8", (err, data) => {
   if (err) {
     return console.error("Error reading file:", err);
@@ -44,9 +44,9 @@ fs.readFile(filePath, "utf8", (err, data) => {
   // Sample story data
   const sampleStory = {
     category: "Cyber Security",
-    title: "CyberHoliday",
-    views: 0,
-    downloads: 0,
+    title: "Cyber Holiday",
+    views: 36,
+    downloads: 18,
     content: data,
   };
 

@@ -5,18 +5,17 @@ import { Ionicons } from "@expo/vector-icons";
 import CategoryTile from "../components/CategoryTile";
 import { GlobalStyles } from "../constants/styles";
 import TitleIntethi from "../components/TitleInethi";
-import Button from "../components/Button";
 
 function CategoryScreen({ navigation }) {
-  const ip_address = "192.168.100.101";
-  const [categories, setCategories] = useState([]);
+  const ip_address = "inethistories-1.cs.uct.ac.za";
 
+  const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`http://${ip_address}:5000/categories`);
+        const response = await fetch(`https://${ip_address}/categories`);
         const data = await response.json();
         //console.log("Fetched data:", data); // Log the data
         setCategories(data);
@@ -30,7 +29,9 @@ function CategoryScreen({ navigation }) {
     fetchData();
   }, []);
 
-  const renderCategoryItem = ({ item }) => (
+  //Create the category tile (categories are fetched from the database).
+  //The tiles are 'buttons' to load stories in that category
+  const createCategoryTile = ({ item }) => (
     <CategoryTile
       title={item.category}
       onPress={() =>
@@ -39,14 +40,10 @@ function CategoryScreen({ navigation }) {
     />
   );
 
-  function downloadAllHandler() {
-    console.log("DOWNLOAD ALL");
-  }
-
   return (
     <View style={styles.container}>
       <View style={styles.titleContainer}>
-        <TitleIntethi>Categories</TitleIntethi>
+        <TitleIntethi size={30}> Categories </TitleIntethi>
       </View>
       {loading ? (
         <View>
@@ -56,16 +53,11 @@ function CategoryScreen({ navigation }) {
         <View>
           <FlatList
             data={categories}
-            renderItem={renderCategoryItem}
+            renderItem={createCategoryTile}
             keyExtractor={(item) => item._id}
           />
         </View>
       )}
-      {/* <View style={styles.buttonBottomContainer}>
-        <Button onPress={homeButtonHandler}>
-          <Ionicons name="home" />
-        </Button>
-      </View> */}
     </View>
   );
 }
@@ -83,10 +75,12 @@ const styles = StyleSheet.create({
   titleContainer: {
     width: 300,
     justifyContent: "center",
+    padding: 2,
     borderRadius: 10,
     textAlign: "center",
     alignItems: "center",
-    backgroundColor: GlobalStyles.colors.primary400,
+    borderColor: GlobalStyles.colors.primary400,
+    borderWidth: 4,
     marginBottom: 10,
     marginTop: 100,
   },

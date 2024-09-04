@@ -1,6 +1,20 @@
 import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
 import { GlobalStyles } from "../constants/styles";
 
+/**DownloadedTile is a component that shows a pressable tile and handles a touch event.
+ * A tile acts as a button that will navigate to a the respective downloaded story screen
+ *
+ *@component
+ *@param {Object} props - The DownloadedTile component props.
+ *@param {string} props.title - The text that is seen on the tile (The category name)
+ *@param {Function} props.onPress - The function that is executed/called on tile press (Generally to navigate to corresponding category screen)
+ *
+ *@example
+ * <CategoryTile title={"Text for tile"} onPress={()=> Console.log("Downloaded story tile was pressed")}>
+ *
+ *@returns {JSX.Element} The pressable tile component
+ *
+ */
 function DownloadedTile({ title, onPress }) {
   return (
     <View style={styles.box}>

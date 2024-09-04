@@ -28,8 +28,22 @@ yarn-error.*
 .DS_Store
 *.pem
 
+# IDE Specific
+.vscode/
+
+# Expo Specific
+.expo/
+.expo-shared/
+
+# Build Directories 
+%ProgramData%/Microsoft/Windows/UUS/State/
+
 # local env files
 .env*.local
 
 # typescript
 *.tsbuildinfo
+
+# Exclude specific files
+server.js
+upload.js

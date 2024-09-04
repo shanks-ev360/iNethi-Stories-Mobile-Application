@@ -1,6 +1,21 @@
 import { View, StyleSheet, Pressable, Platform, Text } from "react-native";
 import { GlobalStyles } from "../constants/styles";
 
+/**CategoryTile is a component that shows a pressable button and handles a touch event.
+ * A tile acts as a btton that will navigate to a list of stories in the category
+ *
+ *@component
+ *@param {Object} props - The CategoryTile component props.
+ *@param {string} props.title - The text that is seen on the tile (The category name)
+ *@param {Function} props.onPress - The function that is executed/called on tile press (Generally to navigate to corresponding category screen)
+ *
+ *@example
+ * <CategoryTile title="Text for tile" onPress={()=> Console.log("Category tile was pressed")}>
+ *
+ *@returns {JSX.Element} The pressable tile component
+ *
+ */
+
 function CategoryTile({ title, onPress }) {
   return (
     <View style={styles.tileItem}>

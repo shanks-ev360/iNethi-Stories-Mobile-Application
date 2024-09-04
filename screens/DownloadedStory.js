@@ -94,25 +94,25 @@ function DownloadedStory({ route, navigation }) {
 
   return (
     <View style={styles.container}>
-      <TitleIntethi>{title}</TitleIntethi>
+      <TitleIntethi size={30}> {title} </TitleIntethi>
 
       <WebView
-        originWhitelist={["*"]}
         source={source}
+        originWhitelist={["*"]} //Need this for IOS, so that the HTML file can be fetched from storage, but without this it will work on android
+        //List of origin strings to allow being navigated to.
+        //The strings allow wildcards and get matched against just the origin (not the full URL).
+        //If the user taps to navigate to a new page but the new page is not in this whitelist, the URL will be handled by the OS.
+        //The default whitelisted origins are "http://" and "https://".
+
         javaScriptEnabled={true}
         domStorageEnabled={true}
         style={styles.webview}
-        containerStyle={{ paddingHorizontal: 10 }}
+        containerStyle={styles.webviewContainer}
         mediaPlaybackRequiresUserAction={false}
         allowFileAccess={true}
         allowFileAccessFromFileURLs={true}
         allowsInlineMediaPlayback={true}
         startInLoadingState={true}
-        onError={(syntheticEvent) => {
-          const { nativeEvent } = syntheticEvent;
-          console.warn("WebView error: ", nativeEvent);
-          Alert.alert("Error", "Unable to load the story.");
-        }}
       />
       <View style={styles.buttonsContainer}>
         <View style={styles.buttonContainer}>
@@ -149,8 +149,14 @@ const styles = StyleSheet.create({
     margin: 10,
   },
   webview: {
-    borderRadius: 10,
+    borderRadius: 8,
     width: "100%",
+  },
+  webviewContainer: {
+    borderColor: GlobalStyles.colors.primary400,
+    borderWidth: 2,
+    borderRadius: 10,
+    marginHorizontal: 4,
   },
   buttonsContainer: {
     height: height * 0.15,

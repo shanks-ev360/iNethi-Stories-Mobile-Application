@@ -5,11 +5,12 @@ const cors = require("cors");
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-app.use(cors());
+app.use(cors({ origin: "*" }));
 app.use(express.json());
 
 // MongoDB connection
-const MONGODB_URI = "mongodb://localhost:27017/inethistories";
+const MONGODB_URI =
+  "mongodb+srv://evanshankman:Testing1234@cluster0.61dimjd.mongodb.net/inethi_stories?retryWrites=true&w=majority";
 mongoose
   .connect(MONGODB_URI)
   .then(() => console.log("MongoDB connected"))
@@ -38,7 +39,7 @@ const Story = mongoose.model("Story", storySchema);
 app.get("/categories", async (req, res) => {
   try {
     const categories = await Category.find();
-    // console.log("Categories from MongoDB:", categories); // categories
+    console.log("Categories from MongoDB:", categories); // categories
     res.json(categories);
   } catch (err) {
     res.status(500).json({ message: err.message });
@@ -49,9 +50,9 @@ app.get("/stories/:category", async (req, res) => {
   const { category } = req.params;
   //console.log(`Received category parameter: ${category}`);
   try {
-    const decodedCategory = decodeURIComponent(category);
     //console.log(`Fetching stories for category: ${decodedCategory}`);
-    const allStories = await Story.find({ category: decodedCategory });
+    const allStories = await Story.find().where("category").equals(category);
+
     //console.log("Fetched stories:", allStories);
     res.json(allStories);
   } catch (error) {
@@ -61,14 +62,28 @@ app.get("/stories/:category", async (req, res) => {
 });
 
 app.get("/stories", async (req, res) => {
-  const { title } = req.query;
+  //console.log("HERE");
+  const { search } = req.query;
   try {
     //console.log(title);
-    const results = await Story.find();
+    const results = await Story.find({
+      title: { $regex: search, $options: "i" },
+    });
     //console.log(results);
     res.json(results);
   } catch (error) {
     console.error("Error fetching search results:", error);
+    res.status(500).json({ message: error.message });
+  }
+});
+
+app.get("/stories/:category/downloadall", async (req, res) => {
+  const { category } = req.params;
+  try {
+    const allStories = await Story.find().where("category").equals(category);
+    res.json(allStories);
+  } catch (error) {
+    console.error("Error fetching stories:", error);
     res.status(500).json({ message: error.message });
   }
 });
