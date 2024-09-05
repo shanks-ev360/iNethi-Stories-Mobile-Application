@@ -18,7 +18,8 @@ Pull this repository code onto your pc
 npm install
 ```
 
-## Run Expo Go
+## Usage
+### Run Expo Go
 Once the node_modules have been installed
 ```
 # Run Expo Go Sandbox to test and use application
