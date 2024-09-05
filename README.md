@@ -6,8 +6,6 @@ This README file gives a brief description of the iNethi Stories React Native ap
 - [Overview](#overview)
 - [Installing](#installing)
 - [Usage](#usage)
-- [Screenshots](#screenshots))
-
 
 ## Overview
 This repository is for the iNethi Stories mobile application. It is a React Native application that was developed as an honours project at the University of Cape Town.
@@ -20,15 +18,13 @@ Pull this repository code onto your pc
 npm install
 ```
 
-## Usage
+## Run Expo Go
 Once the node_modules have been installed
 ```
 # Run Expo Go Sandbox to test and use application
 npm start
 ```
 
-## Screenshots
-> [!NOTE]
-> Screenshots are from an iOS device (iPhone 14) and were taken while running to application using Expo Go
+
 
 
