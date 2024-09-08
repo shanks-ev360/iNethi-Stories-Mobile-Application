@@ -1,11 +1,11 @@
 # iNethi-Stories-Mobile-Application
-This README file gives a brief description of the iNethi Stories React Native application and how to use it.
+This README file gives a brief description of the iNethi Stories React Native application, how to set up testing the environment, and how to build the APK for it.
 
 ## Contents
 
 - [Overview](#overview)
 - [Installing](#installing)
-- [Usage](#usage)
+- [Testing](#Testing)
 
 ## Overview
 This repository is for the iNethi Stories mobile application. It is a React Native application that was developed as an honours project at the University of Cape Town.
@@ -18,7 +18,7 @@ Pull this repository code onto your pc
 npm install
 ```
 
-## Usage
+## Testing
 ### Run Expo Go
 Once the node_modules have been installed
 ```
@@ -26,6 +26,11 @@ Once the node_modules have been installed
 npm start
 ```
 
+## Installing
+### Build APK for Android devices
+```
+eas build -p android --profile preview
+```
 
 
 
