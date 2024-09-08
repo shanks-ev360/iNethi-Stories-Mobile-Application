@@ -6,6 +6,7 @@ This README file gives a brief description of the iNethi Stories React Native ap
 - [Overview](#overview)
 - [Installing](#installing)
 - [Testing](#Testing)
+- [Installing](#Installing)
 
 ## Overview
 This repository is for the iNethi Stories mobile application. It is a React Native application that was developed as an honours project at the University of Cape Town.
